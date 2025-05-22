@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  mongo:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./data/db:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=rootpassword
+
+  app:
+    build: .
+    container_name: flet_app
+    ports:
+      - "8550:8550"
+    depends_on:
+      - mongo
+    volumes:
+      - ./exportados:/app/exportados    

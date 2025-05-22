@@ -1,0 +1,32 @@
+# Ignorar entorno virtual
+env/
+.venv/
+
+# Ignorar cachés de Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Ignorar archivos de configuración del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Ignorar exportaciones o salidas generadas
+my_app/exportados/
+my_app/data/
+my_app/src/assets/
+my_app/src/storage/
+
+# Ignorar archivos y carpetas de compilación
+*.egg-info/
+build/
+dist/
+
+# Ignorar Docker si no deseas incluirlo (opcional)
+# docker-compose.yml
+# Dockerfile
+
+# Incluir explícitamente las carpetas importantes
+!my_app/src/controlador/
+!my_app/src/modelo/
+!my_app/src/vista/

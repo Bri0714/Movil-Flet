@@ -1,0 +1,7 @@
+flet==0.27.6
+pymongo
+bcrypt
+pandas
+openpyxl
+reportlab
+pymongo
