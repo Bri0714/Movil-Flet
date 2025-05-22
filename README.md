@@ -1,81 +1,117 @@
-# MyApp app
+# 📱 Aplicación de Revisión Preoperacional para Conductores
 
-## Run the app
+Este proyecto es una **aplicación web desarrollada con [Flet](https://flet.dev/)** en Python que permite a conductores registrar inspecciones preoperacionales de sus vehículos, adjuntar evidencias, visualizar registros y exportar reportes en PDF. Los datos se almacenan en **MongoDB**, y toda la aplicación se ejecuta en contenedores utilizando Docker.
 
-### uv
+---
 
-Run as a desktop app:
+## 🧰 Tecnologías utilizadas
 
-```
-uv run flet run
-```
+- 🐍 Python 3.9+
+- 🎨 Flet (framework para construir interfaces gráficas con Python)
+- 🐳 Docker y Docker Compose
+- 📦 MongoDB como base de datos NoSQL
+- 📄 ReportLab para generación de reportes en PDF
 
-Run as a web app:
+---
 
-```
-uv run flet run --web
-```
-
-### Poetry
-
-Install dependencies from `pyproject.toml`:
+## 📁 Estructura del proyecto
 
 ```
-poetry install
+my_app/
+├── data/                    # Datos persistentes de MongoDB (excluidos del repo)
+├── exportados/              # PDF generados al exportar las inspecciones
+├── src/
+│   ├── assets/              # Recursos estáticos (íconos, imágenes, etc.)
+│   ├── controlador/         # Lógica del controlador
+│   ├── modelo/              # Interacciones con la base de datos
+│   ├── storage/             # Gestión de archivos cargados
+│   ├── vista/               # Interfaces con Flet
+│   └── main.py              # Punto de entrada de la aplicación
+├── Dockerfile
+├── docker-compose.yml
+├── requirements.txt
+└── README.md
 ```
 
-Run as a desktop app:
+---
 
-```
-poetry run flet run
-```
+## ⚙️ Requisitos previos
 
-Run as a web app:
+Antes de ejecutar la aplicación asegúrate de tener instalado:
 
-```
-poetry run flet run --web
-```
+- [Docker](https://www.docker.com/)
+- [Docker Compose](https://docs.docker.com/compose/)
 
-For more details on running the app, refer to the [Getting Started Guide](https://flet.dev/docs/getting-started/).
+---
 
-## Build the app
+## 🚀 Instrucciones de instalación
 
-### Android
+### 1. Clona el repositorio
 
-```
-flet build apk -v
+```bash
+git clone https://github.com/Bri0714/Movil-Flet.git
+cd Movil-Flet
 ```
 
-For more details on building and signing `.apk` or `.aab`, refer to the [Android Packaging Guide](https://flet.dev/docs/publish/android/).
+### 2. Crea las carpetas necesarias (si no existen)
 
-### iOS
-
-```
-flet build ipa -v
-```
-
-For more details on building and signing `.ipa`, refer to the [iOS Packaging Guide](https://flet.dev/docs/publish/ios/).
-
-### macOS
-
-```
-flet build macos -v
+```bash
+mkdir -p data/db
+mkdir -p my_app/exportados
 ```
 
-For more details on building macOS package, refer to the [macOS Packaging Guide](https://flet.dev/docs/publish/macos/).
+Estas carpetas se utilizan como volúmenes para persistencia de datos de MongoDB y almacenamiento de archivos PDF exportados.
 
-### Linux
+### 3. Construye y levanta los servicios
 
-```
-flet build linux -v
-```
-
-For more details on building Linux package, refer to the [Linux Packaging Guide](https://flet.dev/docs/publish/linux/).
-
-### Windows
-
-```
-flet build windows -v
+```bash
+docker-compose up --build
 ```
 
-For more details on building Windows package, refer to the [Windows Packaging Guide](https://flet.dev/docs/publish/windows/).
+Esto levantará:
+- 🛢️ Un contenedor `mongo` corriendo en el puerto 27017
+- 🖥️ Un contenedor `flet_app` accesible desde http://localhost:8550
+
+---
+
+## 💻 Uso de la aplicación
+
+1. Accede a la aplicación desde tu navegador en http://localhost:8550.
+2. Completa el formulario con los datos del conductor.
+3. Adjunta evidencias fotográficas del vehículo.
+4. Exporta el reporte en formato PDF.
+5. Los reportes se guardan automáticamente en `my_app/exportados/`.
+
+---
+
+## 🧹 Apagar los contenedores
+
+Para detener la aplicación:
+
+```bash
+docker-compose down
+```
+
+Esto apagará los servicios pero mantendrá los datos persistentes en `data/db`.
+
+---
+
+## ⚠️ Notas importantes
+
+- La carpeta `data/` contiene archivos internos de MongoDB y no debe subirse al repositorio. Ya está excluida por `.gitignore`.
+- Los archivos en `exportados/` se generan dinámicamente y tampoco deben ser versionados.
+- Si accidentalmente subiste archivos muy pesados, puedes usar [BFG Repo-Cleaner](https://rtyley.github.io/bfg-repo-cleaner/) para limpiar el historial de Git.
+
+---
+
+## 📄 Licencia
+
+Este proyecto está licenciado bajo la [MIT License](LICENSE). Puedes usarlo, modificarlo y distribuirlo libremente con atribución.
+
+---
+
+## 👤 Autor
+
+**Desarrollado por:**
+- Brian Alexander Amezquita Parada
+- 🔗 [GitHub - Bri0714](https://github.com/Bri0714)
